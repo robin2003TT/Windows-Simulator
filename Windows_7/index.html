@@ -1,64 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Windows 7 by Robin</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="favicon.ico" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Boot Screen -->
-  <div id="boot-screen" class="screen">
-    <img src="assets/icon/start.png" class="boot-logo" alt="Booting..."/>
-    <p>Starting Windows</p>
-  </div>
 
   <!-- Login Screen -->
-  <div id="login-screen" class="screen hidden">
-    <img src="lbg.png" class="login-bg" />
-    <div class="login-box">
-      <img src="assets/icon/user.png" class="user-icon" />
-      <p class="username">Administrator</p>
-      <button id="login-btn">Login</button>
+  <div id="login-screen">
+    <img src="lbg.png" id="login-bg" />
+    <div id="login-box">
+      <img src="assets/icon/user.png" class="user-icon">
+      <div class="user-name">Administrator</div>
+      <button id="loginBtn">Log in</button>
     </div>
   </div>
 
-  <!-- Desktop -->
+  <!-- Desktop Environment -->
   <div id="desktop" class="hidden">
-    <img src="bg.png" class="desktop-bg" />
+    <!-- Desktop Icons -->
     <div id="icons">
-      <div class="desktop-icon" data-app="explorer">
-        <img src="assets/icon/icon-mycomputer.png" />
+      <div class="desktop-icon" onclick="launchApp('explorer')">
+        <img src="assets/icon/icon-mycomputer.png">
         <span>My Computer</span>
       </div>
     </div>
 
-    <!-- Start Menu -->
-    <div id="start-menu" class="hidden">
-      <div class="start-header">
-        <img src="assets/icon/user.png" class="start-user" />
-        <span>Administrator</span>
-      </div>
-      <ul id="start-apps">
-        <li data-app="notepad">Notepad</li>
-        <li data-app="cmd">Command Prompt</li>
-        <li data-app="explorer">Explorer</li>
-        <li data-app="media">Media Player</li>
-        <li data-app="browser">Web Browser</li>
-        <li data-app="control-panel">Control Panel</li>
-        <li data-app="ms-store">MS Store</li>
-        <li data-app="taskmgr">Task Manager</li>
-      </ul>
-    </div>
-
     <!-- Taskbar -->
     <div id="taskbar">
-      <button id="start-btn"><img src="assets/icon/start.png" /></button>
+      <div id="start-button" onclick="toggleStartMenu()">
+        <img src="assets/icon/start.png">
+      </div>
       <div id="taskbar-apps"></div>
+      <div id="clock"></div>
+    </div>
+
+    <!-- Start Menu -->
+    <div id="start-menu" class="hidden">
+      <ul>
+        <li onclick="launchApp('notepad')">Notepad</li>
+        <li onclick="launchApp('cmd')">Command Prompt</li>
+        <li onclick="launchApp('explorer')">File Explorer</li>
+        <li onclick="launchApp('taskmgr')">Task Manager</li>
+        <li onclick="launchApp('browser')">Browser</li>
+        <li onclick="launchApp('media')">Media Player</li>
+      </ul>
     </div>
   </div>
 
+  <!-- Context Menu -->
+  <ul id="custom-menu" class="context-menu hidden">
+    <li id="menu-refresh">Refresh</li>
+    <li id="menu-taskmgr">Task Manager</li>
+    <li id="menu-new-folder">New > Folder</li>
+  </ul>
+
+  <script src="aero.js"></script>
+  <script src="contextmenu.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
