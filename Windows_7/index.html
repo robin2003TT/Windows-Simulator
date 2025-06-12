@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Windows 7 by Robin</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="favicon.ico" />
+</head>
+<body>
+
+  <!-- Boot Screen -->
+  <div id="boot-screen">
+    <img src="assets/icon/start.png" alt="Starting Windows" id="boot-logo" />
+    <p id="boot-text">Starting Windows...</p>
+  </div>
+
+  <!-- Login Screen -->
+  <div id="login-screen" style="display: none;">
+    <img src="lbg.png" class="login-bg" alt="Login Background" />
+    <div class="login-container">
+      <img src="assets/icon/user.png" class="user-img" alt="User" />
+      <div class="username">Administrator</div>
+      <button id="login-button">Log in</button>
+    </div>
+  </div>
+
+  <!-- Desktop UI -->
+  <div id="desktop" style="display: none;">
+    <img src="bg.png" id="desktop-bg" alt="Background" />
+    <div id="desktop-icons">
+      <div class="icon" data-app="explorer">
+        <img src="assets/icon/icon-mycomputer.png" />
+        <span>My Computer</span>
+      </div>
+      <!-- Add more icons here -->
+    </div>
+
+    <!-- Taskbar -->
+    <div id="taskbar">
+      <div id="start-button">
+        <img src="assets/icon/start.png" alt="Start" />
+      </div>
+      <div id="taskbar-apps"></div>
+      <div id="clock"></div>
+    </div>
+
+    <!-- Start Menu -->
+    <div id="start-menu" style="display: none;">
+      <div class="start-menu-inner">
+        <h3>Welcome, Administrator</h3>
+        <ul>
+          <li data-app="notepad">Notepad</li>
+          <li data-app="cmd">Command Prompt</li>
+          <li data-app="explorer">File Explorer</li>
+          <li data-app="video">Video Player</li>
+          <li data-app="browser">Web Browser</li>
+          <li data-app="paint">Paint</li>
+          <li data-app="calculator">Calculator</li>
+          <li data-app="controlpanel">Control Panel</li>
+          <li data-app="msstore">MS Store</li>
+        </ul>
+        <div class="start-bottom">
+          <button id="shutdown">Shutdown</button>
+          <button id="restart">Restart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+  <script src="session.js"></script>
+  <script src="contextmenu.js"></script>
+  <script src="aero.js"></script>
+</body>
+</html>
