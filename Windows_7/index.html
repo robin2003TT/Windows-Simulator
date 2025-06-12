@@ -2,53 +2,63 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Windows 7 by Robin</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="favicon.ico" />
 </head>
 <body>
-  <div id="boot-screen">
-    <p class="boot-text">Starting Windows...</p>
+  <!-- Boot Screen -->
+  <div id="boot-screen" class="screen">
+    <img src="assets/icon/start.png" class="boot-logo" alt="Booting..."/>
+    <p>Starting Windows</p>
   </div>
 
-  <div id="login-screen">
-    <img src="lbg.png" id="login-bg">
-    <div id="login-panel">
+  <!-- Login Screen -->
+  <div id="login-screen" class="screen hidden">
+    <img src="lbg.png" class="login-bg" />
+    <div class="login-box">
       <img src="assets/icon/user.png" class="user-icon" />
-      <p>Administrator</p>
+      <p class="username">Administrator</p>
       <button id="login-btn">Login</button>
     </div>
   </div>
 
-  <div id="desktop">
-    <img src="bg.png" id="desktop-bg">
-
-    <div class="desktop-icon" data-app="explorer">
-      <img src="assets/icon/icon-mycomputer.png">
-      <span>My Computer</span>
-    </div>
-
-    <div id="taskbar">
-      <div id="start-button">
-        <img src="assets/icon/start.png">
+  <!-- Desktop -->
+  <div id="desktop" class="hidden">
+    <img src="bg.png" class="desktop-bg" />
+    <div id="icons">
+      <div class="desktop-icon" data-app="explorer">
+        <img src="assets/icon/icon-mycomputer.png" />
+        <span>My Computer</span>
       </div>
-      <div id="taskbar-apps"></div>
-      <div id="taskbar-clock"></div>
     </div>
 
-    <div id="start-menu">
-      <h3>Start</h3>
-      <div id="app-list"></div>
-      <div id="extra-apps"></div>
+    <!-- Start Menu -->
+    <div id="start-menu" class="hidden">
+      <div class="start-header">
+        <img src="assets/icon/user.png" class="start-user" />
+        <span>Administrator</span>
+      </div>
+      <ul id="start-apps">
+        <li data-app="notepad">Notepad</li>
+        <li data-app="cmd">Command Prompt</li>
+        <li data-app="explorer">Explorer</li>
+        <li data-app="media">Media Player</li>
+        <li data-app="browser">Web Browser</li>
+        <li data-app="control-panel">Control Panel</li>
+        <li data-app="ms-store">MS Store</li>
+        <li data-app="taskmgr">Task Manager</li>
+      </ul>
+    </div>
+
+    <!-- Taskbar -->
+    <div id="taskbar">
+      <button id="start-btn"><img src="assets/icon/start.png" /></button>
+      <div id="taskbar-apps"></div>
     </div>
   </div>
 
-  <ul id="context-menu"></ul>
-
-  <!-- JS Scripts -->
-  <script src="aero.js"></script>
-  <script src="contextmenu.js"></script>
-  <script src="session.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
