@@ -1,50 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Windows 7 by Robin</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" />
 </head>
 <body>
-
-  <!-- LOGIN SCREEN -->
-  <div id="login-screen">
-    <img src="lbg.png" class="login-bg" alt="Login Background">
-    <div class="login-box">
-      <img src="assets/icon/user.png" alt="User Icon" class="user-icon">
-      <div class="username">Administrator</div>
-      <button id="login-button">Login</button>
-    </div>
-  </div>
-
-  <!-- BOOT SCREEN -->
   <div id="boot-screen">
-    <div class="boot-text">Starting Windows</div>
-    <img src="bg.png" alt="Boot" class="boot-bg">
+    <p class="boot-text">Starting Windows...</p>
   </div>
 
-  <!-- MAIN UI -->
+  <div id="login-screen">
+    <img src="lbg.png" id="login-bg">
+    <div id="login-panel">
+      <img src="assets/icon/user.png" class="user-icon" />
+      <p>Administrator</p>
+      <button id="login-btn">Login</button>
+    </div>
+  </div>
+
   <div id="desktop">
-    <img src="bg.png" class="desktop-bg" alt="Desktop Background">
-    <div id="desktop-icons"></div>
-    <div id="taskbar">
-      <img src="assets/icon/start.png" id="start-button" alt="Start Button">
-      <div id="taskbar-apps"></div>
+    <img src="bg.png" id="desktop-bg">
+
+    <div class="desktop-icon" data-app="explorer">
+      <img src="assets/icon/icon-mycomputer.png">
+      <span>My Computer</span>
     </div>
-    <div id="start-menu" class="hidden">
-      <div id="start-app-list"></div>
+
+    <div id="taskbar">
+      <div id="start-button">
+        <img src="assets/icon/start.png">
+      </div>
+      <div id="taskbar-apps"></div>
+      <div id="taskbar-clock"></div>
+    </div>
+
+    <div id="start-menu">
+      <h3>Start</h3>
+      <div id="app-list"></div>
+      <div id="extra-apps"></div>
     </div>
   </div>
 
-  <!-- RIGHT-CLICK MENU -->
-  <ul id="context-menu" class="hidden"></ul>
+  <ul id="context-menu"></ul>
 
-  <!-- JS FILES -->
-  <script src="script.js"></script>
-  <script src="contextmenu.js"></script>
+  <!-- JS Scripts -->
   <script src="aero.js"></script>
+  <script src="contextmenu.js"></script>
   <script src="session.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
