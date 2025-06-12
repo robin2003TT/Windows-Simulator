@@ -1,66 +1,113 @@
-window.onload = () => {
-  document.getElementById("boot-screen").classList.add("active");
+window.addEventListener('DOMContentLoaded', () => {
+  const bootScreen = document.getElementById('boot-screen');
+  const loginScreen = document.getElementById('login-screen');
+  const desktop = document.getElementById('desktop');
+  const loginBtn = document.getElementById('login-btn');
+  const startBtn = document.getElementById('start-button');
+  const startMenu = document.getElementById('start-menu');
+  const appList = document.getElementById('app-list');
+  const desktopIcon = document.querySelector('.desktop-icon');
+
+  // Boot sequence
+  bootScreen.style.display = 'flex';
   setTimeout(() => {
-    document.getElementById("boot-screen").classList.remove("active");
-    document.getElementById("login-screen").classList.add("active");
+    bootScreen.style.display = 'none';
+    loginScreen.style.display = 'block';
   }, 2000);
 
-  document.getElementById("login-button").addEventListener("click", () => {
-    document.getElementById("login-screen").classList.remove("active");
-    document.getElementById("desktop").classList.add("active");
-    initDesktop();
-  });
+  loginBtn.onclick = () => {
+    loginScreen.style.display = 'none';
+    desktop.style.display = 'block';
+    loadApps();
+    updateClock();
+    setInterval(updateClock, 60000);
+  };
 
-  document.getElementById("start-button").addEventListener("click", () => {
-    document.getElementById("start-menu").classList.toggle("hidden");
-  });
-};
+  // Toggle Start menu
+  startBtn.onclick = () => {
+    startMenu.style.display = startMenu.style.display === 'block' ? 'none' : 'block';
+  };
 
-function initDesktop() {
-  loadStartMenu();
-  addDesktopIcon("My Computer", "assets/icon/icon-mycomputer.png", "explorer");
-}
+  // Show My Computer
+  desktopIcon.onclick = () => {
+    openApp('explorer');
+  };
 
-function addDesktopIcon(name, icon, appName) {
-  const iconEl = document.createElement("div");
-  iconEl.className = "desktop-icon";
-  iconEl.innerHTML = `<img src="${icon}" style="width:48px;"><br><span style="font-size:12px">${name}</span>`;
-  iconEl.addEventListener("dblclick", () => launchApp(appName));
-  document.getElementById("desktop-icons").appendChild(iconEl);
-}
+  function updateClock() {
+    const clock = document.getElementById('taskbar-clock');
+    const now = new Date();
+    clock.textContent = now.toLocaleTimeString();
+  }
 
-function loadStartMenu() {
-  const list = document.getElementById("start-app-list");
-  fetch("apps/")
-    .then(r => r.text())
-    .then(data => {
-      const matches = data.match(/href="([^"]+)\/"/g) || [];
-      matches.forEach(folder => {
-        const name = folder.split('"')[1];
-        const item = document.createElement("div");
-        item.textContent = name;
-        item.addEventListener("click", () => launchApp(name));
-        list.appendChild(item);
+  function loadApps() {
+    fetch('apps/')
+      .then(r => r.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const links = [...doc.querySelectorAll('a')].map(a => a.getAttribute('href')).filter(h => h && !h.startsWith('..'));
+        appList.innerHTML = '';
+        links.forEach(folder => {
+          const name = folder.replace('/', '');
+          const div = document.createElement('div');
+          div.textContent = name;
+          div.className = 'start-app';
+          div.onclick = () => openApp(name);
+          appList.appendChild(div);
+        });
       });
-    });
-}
+  }
 
-function launchApp(appName) {
-  const appPath = `apps/${appName}/${appName}.js`;
-  const win = document.createElement("div");
-  win.className = "window";
-  win.innerHTML = `
-    <div class="window-header">
-      <span>${appName}</span>
-      <div class="window-controls">
-        <div onclick="this.closest('.window').remove()">✕</div>
+  function openApp(name) {
+    const path = `apps/${name}/${name}.js`;
+    const existing = document.querySelector(`.window[data-app="${name}"]`);
+    if (existing) return;
+
+    const win = document.createElement('div');
+    win.className = 'window';
+    win.dataset.app = name;
+    win.style.top = '100px';
+    win.style.left = '100px';
+    win.innerHTML = `
+      <div class="window-header">
+        <span>${name}</span>
+        <div class="window-controls">
+          <span onclick="this.closest('.window').remove()">✖</span>
+        </div>
       </div>
-    </div>
-    <div class="window-content" id="win-${appName}">Loading...</div>
-  `;
-  document.getElementById("desktop").appendChild(win);
-  fetch(appPath)
-    .then(r => r.text())
-    .then(code => eval(code))
-    .catch(() => win.querySelector('.window-content').innerHTML = "App not available");
-}
+      <div class="window-body">Loading ${name}...</div>
+    `;
+    document.body.appendChild(win);
+    makeDraggable(win);
+
+    const script = document.createElement('script');
+    script.src = path;
+    script.onerror = () => {
+      win.querySelector('.window-body').textContent = 'App not available.';
+    };
+    script.onload = () => {
+      win.querySelector('.window-body').textContent = ''; // Cleared by app script
+    };
+    document.body.appendChild(script);
+  }
+
+  function makeDraggable(win) {
+    const header = win.querySelector('.window-header');
+    let isDragging = false, offsetX = 0, offsetY = 0;
+
+    header.onmousedown = (e) => {
+      isDragging = true;
+      offsetX = e.clientX - win.offsetLeft;
+      offsetY = e.clientY - win.offsetTop;
+    };
+
+    window.onmousemove = (e) => {
+      if (isDragging) {
+        win.style.left = e.clientX - offsetX + 'px';
+        win.style.top = e.clientY - offsetY + 'px';
+      }
+    };
+
+    window.onmouseup = () => isDragging = false;
+  }
+});
