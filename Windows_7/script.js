@@ -1,39 +1,50 @@
-window.onload = () => {
-  const boot = document.getElementById("boot-screen");
-  const login = document.getElementById("login-screen");
+document.addEventListener("DOMContentLoaded", () => {
+  const loginBtn = document.getElementById("loginBtn");
+  const loginScreen = document.getElementById("login-screen");
   const desktop = document.getElementById("desktop");
-  const loginBtn = document.getElementById("login-btn");
-  const startBtn = document.getElementById("start-btn");
   const startMenu = document.getElementById("start-menu");
+  const clock = document.getElementById("clock");
 
-  // Simulate boot delay
-  setTimeout(() => {
-    boot.classList.add("hidden");
-    login.classList.remove("hidden");
-  }, 2000);
+  if (loginBtn) {
+    loginBtn.onclick = () => {
+      loginScreen.style.display = "none";
+      desktop.classList.remove("hidden");
+      updateClock();
+      setInterval(updateClock, 1000);
+    };
+  }
 
-  loginBtn.addEventListener("click", () => {
-    login.classList.add("hidden");
-    desktop.classList.remove("hidden");
-  });
+  function updateClock() {
+    if (clock) {
+      const now = new Date();
+      clock.textContent = now.toLocaleTimeString();
+    }
+  }
 
-  // Toggle Start Menu
-  startBtn.addEventListener("click", () => {
+  window.toggleStartMenu = () => {
     startMenu.classList.toggle("hidden");
-  });
+  };
 
-  // Launch apps from desktop icon
-  document.querySelectorAll(".desktop-icon").forEach(icon => {
-    icon.addEventListener("dblclick", () => {
-      alert(`Launching ${icon.dataset.app}... (app not implemented yet)`);
-    });
-  });
+  window.launchApp = (appName) => {
+    const appWindow = document.createElement("div");
+    appWindow.classList.add("window");
+    appWindow.innerHTML = `
+      <div class="window-title">${appName}
+        <button onclick="this.parentElement.parentElement.remove()">×</button>
+      </div>
+      <div class="window-body">
+        <iframe src="apps/${appName}.html" style="width:100%;height:100%;border:none;"></iframe>
+      </div>
+    `;
+    appWindow.style.position = "absolute";
+    appWindow.style.left = "100px";
+    appWindow.style.top = "100px";
+    appWindow.style.width = "600px";
+    appWindow.style.height = "400px";
+    appWindow.style.background = "#fff";
+    appWindow.style.border = "1px solid #000";
+    appWindow.style.zIndex = Date.now();
 
-  // Launch apps from start menu
-  document.querySelectorAll("#start-apps li").forEach(item => {
-    item.addEventListener("click", () => {
-      alert(`Launching ${item.dataset.app}... (app not implemented yet)`);
-      startMenu.classList.add("hidden");
-    });
-  });
-};
+    desktop.appendChild(appWindow);
+  };
+});
