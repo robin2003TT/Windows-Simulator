@@ -3,143 +3,130 @@ body, html {
   padding: 0;
   overflow: hidden;
   font-family: 'Segoe UI', sans-serif;
+  background-color: #000;
 }
 
-#boot-screen, #login-screen, #desktop {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: none;
-}
-
-#boot-screen {
-  background: black;
-  color: white;
-  font-size: 24px;
+.screen {
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-#login-bg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-}
-
-#login-panel {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-.user-icon {
-  width: 96px;
-  height: 96px;
-}
-
-#login-btn {
-  padding: 10px 20px;
-  font-size: 16px;
-}
-
-#desktop {
+.hidden {
   display: none;
 }
 
-#desktop-bg {
+.boot-logo {
+  width: 120px;
+}
+
+.login-bg, .desktop-bg {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
   z-index: -1;
 }
 
-.desktop-icon {
+.login-box {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.login-box .user-icon {
+  width: 100px;
+}
+
+.username {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+#desktop {
+  position: relative;
+}
+
+#icons {
   position: absolute;
   top: 50px;
-  left: 20px;
+  left: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.desktop-icon {
   text-align: center;
+  margin-bottom: 30px;
   cursor: pointer;
-  width: 80px;
 }
 
 .desktop-icon img {
-  width: 48px;
-  height: 48px;
+  width: 64px;
 }
 
 .desktop-icon span {
+  display: block;
   font-size: 12px;
+  margin-top: 5px;
+  color: white;
+  text-shadow: 1px 1px black;
 }
 
 #taskbar {
   position: absolute;
   bottom: 0;
-  height: 48px;
-  width: 100%;
-  background: #1c1c1c;
+  left: 0;
+  height: 50px;
+  width: 100vw;
+  background: #1f1f1f;
   display: flex;
   align-items: center;
-}
-
-#start-button img {
-  width: 60px;
-  height: 48px;
-  cursor: pointer;
-}
-
-#taskbar-apps {
-  flex: 1;
-  display: flex;
-  gap: 5px;
-  padding-left: 10px;
-}
-
-#taskbar-clock {
   padding: 0 10px;
-  color: white;
-  font-size: 14px;
+}
+
+#start-btn img {
+  width: 32px;
 }
 
 #start-menu {
   position: absolute;
-  bottom: 48px;
-  left: 0;
-  width: 220px;
-  background: rgba(30,30,30,0.95);
-  color: white;
-  display: none;
+  bottom: 60px;
+  left: 10px;
+  width: 200px;
+  background: #e0e0e0;
+  border: 1px solid #ccc;
+  z-index: 100;
+}
+
+.start-header {
   padding: 10px;
-}
-
-#app-list, #extra-apps {
-  margin-top: 10px;
-}
-
-.window {
-  position: absolute;
-  border: 1px solid #555;
-  background: #f0f0f0;
-  resize: both;
-  overflow: auto;
-  z-index: 10;
-}
-
-.window-header {
-  background: #2c2c2c;
+  background: #0078d7;
   color: white;
-  padding: 5px;
-  cursor: move;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 10px;
 }
 
-.window-controls span {
-  margin-left: 10px;
+.start-header .start-user {
+  width: 32px;
+}
+
+#start-apps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#start-apps li {
+  padding: 10px;
   cursor: pointer;
+}
+
+#start-apps li:hover {
+  background: #d0d0d0;
 }
