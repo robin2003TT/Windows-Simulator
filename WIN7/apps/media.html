@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Media Player</title>
+</head>
+<body>
+  <h2>Available Media</h2>
+  <ul id="mediaList"></ul>
+  <video id="player" controls style="width:100%; display:none;"></video>
+  <script>
+    fetch("/assets/Player/")
+      .then(res => res.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+        const files = [...doc.querySelectorAll("a")].filter(link =>
+          /\.(mp4|mp3|png|jpg)$/i.test(link.href)
+        );
+        const list = document.getElementById("mediaList");
+        const player = document.getElementById("player");
+        files.forEach(file => {
+          const li = document.createElement("li");
+          li.textContent = file.textContent;
+          li.style.cursor = "pointer";
+          li.onclick = () => {
+            player.src = file.href;
+            player.style.display = "block";
+            player.play();
+          };
+          list.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>

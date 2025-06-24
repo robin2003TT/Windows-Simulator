@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Windows 7 by Robin</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="favicon.ico">
+</head>
+<body>
+  <!-- Login Screen -->
+  <div id="login-screen">
+    <img src="lbg.png" id="login-bg">
+    <div id="login-panel">
+      <img src="assets/icon/user.png" id="login-user">
+      <div id="login-username">Administrator</div>
+      <button id="login-btn">Login</button>
+    </div>
+  </div>
+
+  <!-- Desktop -->
+  <div id="desktop">
+    <img src="bg.png" id="desktop-bg">
+    <div id="desktop-icons">
+      <div class="icon" onclick="openApp('explorer')">
+        <img src="assets/icon/icon-mycomputer.png">
+        <span>My Computer</span>
+      </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div id="taskbar">
+      <div id="start-button" onclick="toggleStartMenu()">
+        <img src="assets/icon/start.png">
+      </div>
+      <div id="taskbar-apps"></div>
+    </div>
+
+    <!-- Start Menu -->
+    <div id="start-menu">
+      <div onclick="openApp('notepad')">Notepad</div>
+      <div onclick="openApp('snake')">Snake</div>
+      <div onclick="openApp('cmd')">Command Prompt</div>
+      <div onclick="openApp('explorer')">File Explorer</div>
+      <div onclick="openApp('media')">Media Player</div>
+      <div onclick="openApp('browser')">Browser</div>
+      <div onclick="openApp('taskmgr')">Task Manager</div>
+      <div onclick="openApp('calc')">Calculator</div>
+      <div onclick="openApp('paint')">Paint</div>
+      <div onclick="openApp('control')">Control Panel</div>
+      <div onclick="openApp('store')">MS Store</div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="aero.js"></script>
+  <script src="contextmenu.js"></script>
+</body>
+</html>

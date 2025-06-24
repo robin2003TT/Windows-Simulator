@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>File Explorer</title>
+  <style>
+    body { font-family: sans-serif; margin: 0; padding: 10px; }
+  </style>
+</head>
+<body>
+  <h2>Computer (C:\)</h2>
+  <ul id="fileList">Loading directory...</ul>
+  <script>
+    fetch('/assets/fake/')
+      .then(r => r.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+        const links = [...doc.querySelectorAll("a")].filter(a => a.href.includes("/assets/fake/"));
+        const ul = document.getElementById("fileList");
+        ul.innerHTML = "";
+        links.forEach(link => {
+          const li = document.createElement("li");
+          li.textContent = link.textContent;
+          ul.appendChild(li);
+        });
+      })
+      .catch(() => document.getElementById("fileList").innerText = "Unable to load files.");
+  </script>
+</body>
+</html>

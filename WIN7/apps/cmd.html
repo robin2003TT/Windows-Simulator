@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CMD</title>
+  <style>
+    body { margin: 0; background: black; color: white; font-family: Consolas, monospace; padding: 10px; }
+    #output { white-space: pre-wrap; }
+    input { background: black; border: none; color: white; font-family: Consolas; width: 100%; }
+  </style>
+</head>
+<body>
+  <div id="output">Microsoft Windows [Version 6.1.7601]\nCopyright (c) 2009 Microsoft Corporation.</div>
+  <input id="cmd" autofocus />
+  <script>
+    const output = document.getElementById("output");
+    const input = document.getElementById("cmd");
+    input.addEventListener("keydown", e => {
+      if (e.key === "Enter") {
+        const val = input.value;
+        output.innerText += `\nC:\\Users\\Administrator> ${val}`;
+        if (val === "help") {
+          output.innerText += `\nUse help-1, help-2, loadst-<id>, savest-<name>`;
+        } else if (val === "help-1") {
+          output.innerText += `\n[Help Page 1] dir, cls, echo, cd, copy, del, etc.`;
+        } else {
+          output.innerText += `\n'${val}' is not recognized as an internal or external command.`;
+        }
+        input.value = "";
+      }
+    });
+  </script>
+</body>
+</html>

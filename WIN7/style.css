@@ -1,0 +1,148 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+#login-screen {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  z-index: 1000;
+}
+
+#login-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#login-panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+}
+
+#login-user {
+  width: 100px;
+  border-radius: 50%;
+}
+
+#desktop {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#desktop-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  object-fit: cover;
+}
+
+#desktop-icons {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  gap: 10px;
+}
+
+.icon {
+  text-align: center;
+  color: white;
+  width: 80px;
+}
+
+.icon img {
+  width: 48px;
+  height: 48px;
+}
+
+.icon span {
+  font-size: 12px;
+  display: block;
+}
+
+#taskbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 50px;
+  width: 100%;
+  background: rgba(20, 20, 20, 0.9);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  z-index: 99;
+}
+
+#start-button img {
+  height: 40px;
+  cursor: pointer;
+}
+
+#taskbar-apps {
+  display: flex;
+  gap: 10px;
+  margin-left: 20px;
+}
+
+#start-menu {
+  position: absolute;
+  bottom: 60px;
+  left: 10px;
+  width: 200px;
+  background: #ddd;
+  display: none;
+  flex-direction: column;
+  box-shadow: 0 0 10px #000;
+  z-index: 100;
+}
+
+#start-menu div {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+}
+
+.window {
+  position: absolute;
+  width: 600px;
+  height: 400px;
+  background: white;
+  border: 2px solid #aaa;
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.4);
+  z-index: 10;
+  resize: both;
+  overflow: hidden;
+}
+
+.window .title-bar {
+  height: 30px;
+  background: linear-gradient(to bottom, #ddd, #bbb);
+  cursor: move;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.title-bar-buttons button {
+  margin-left: 5px;
+}
+
+.window iframe {
+  width: 100%;
+  height: calc(100% - 30px);
+  border: none;
+  background: white;
+}
